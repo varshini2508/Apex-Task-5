@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Task Tracker — Final Project & Optimization</title>
+  <meta name="description" content="A fast, responsive task tracker with search, filters and localStorage." />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Icons -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <noscript>This app needs JavaScript enabled.</noscript>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="brand"><i class="fa-solid fa-check-double"></i> Task Tracker</div>
+    <ul class="nav-links">
+      <li><a href="#add">Add</a></li>
+      <li><a href="#list">Tasks</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero__content">
+      <h1>Organize. Optimize. Ship 🚀</h1>
+      <p>Build your capstone faster with a clean, responsive, and performant task manager.</p>
+      <a href="#add" class="btn btn--primary">Start Adding Tasks</a>
+    </div>
+    <picture>
+      <!-- tiny illustration, lazy loaded -->
+      <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop"
+           alt="Productivity workspace"
+           class="hero__img" loading="lazy" width="1200" height="800">
+    </picture>
+  </header>
+
+  <!-- APP -->
+  <main class="container">
+
+    <!-- STEP 1: BUILD (Add form) -->
+    <section id="add" class="card fade">
+      <h2><i class="fa-solid fa-plus"></i> Add Task</h2>
+      <form id="task-form" autocomplete="off" aria-label="Add a new task">
+        <div class="grid">
+          <label>
+            <span>Title</span>
+            <input type="text" id="title" placeholder="e.g., Build landing page" required />
+          </label>
+          <label>
+            <span>Due Date</span>
+            <input type="date" id="due" />
+          </label>
+          <label>
+            <span>Priority</span>
+            <select id="priority">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </label>
+        </div>
+        <label>
+          <span>Notes</span>
+          <textarea id="notes" rows="2" placeholder="Optional details…"></textarea>
+        </label>
+        <div class="actions">
+          <button type="submit" class="btn btn--primary"><i class="fa-solid fa-paper-plane"></i> Save</button>
+          <button type="reset" class="btn btn--ghost">Clear</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- STEP 2: OPTIMIZE (Filters, search, stats) -->
+    <section class="card fade" aria-label="Filters and statistics">
+      <h2><i class="fa-solid fa-gauge-high"></i> Optimize — Search & Filters</h2>
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search tasks…" aria-label="Search tasks" />
+        <div class="chips" role="tablist" aria-label="Filter tasks">
+          <button class="chip active" data-filter="all" role="tab">All</button>
+          <button class="chip" data-filter="active" role="tab">Active</button>
+          <button class="chip" data-filter="completed" role="tab">Completed</button>
+          <button class="chip" data-filter="high" role="tab">High Priority</button>
+        </div>
+        <select id="sort" aria-label="Sort tasks">
+          <option value="created_desc">Newest</option>
+          <option value="created_asc">Oldest</option>
+          <option value="due_asc">Due Date ↑</option>
+          <option value="due_desc">Due Date ↓</option>
+          <option value="priority_desc">Priority High→Low</option>
+        </select>
+        <div class="toolbar__right">
+          <button id="export" class="btn btn--mini" title="Export JSON"><i class="fa-solid fa-file-export"></i></button>
+          <label class="btn btn--mini" title="Import JSON">
+            <i class="fa-solid fa-file-import"></i>
+            <input id="import" type="file" accept="application/json" hidden />
+          </label>
+          <button id="clearCompleted" class="btn btn--mini danger" title="Clear completed"><i class="fa-solid fa-broom"></i></button>
+        </div>
+      </div>
+      <div class="stats" id="stats" aria-live="polite"></div>
+    </section>
+
+    <!-- STEP 3: CROSS-BROWSER + RESPONSIVE (Task list UI) -->
+    <section id="list" class="card fade" aria-label="Task list">
+      <h2><i class="fa-solid fa-list-check"></i> Tasks</h2>
+      <ul id="taskList" class="task-list" role="list"></ul>
+      <p id="empty" class="empty">✨ No tasks yet. Add your first one!</p>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="card fade">
+      <h2><i class="fa-solid fa-circle-info"></i> About This Project</h2>
+      <ul class="about-list">
+        <li>Built with <strong>HTML, CSS, JavaScript</strong> only (no frameworks).</li>
+        <li>Data saved in <strong>localStorage</strong> for offline feel.</li>
+        <li><strong>Performance:</strong> debounced search, lazy image, minimal reflows.</li>
+        <li><strong>Compatibility:</strong> semantic HTML, accessible controls, tested CSS features.</li>
+        <li><strong>Responsive:</strong> grid layout, fluid type, dark-mode support.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Task Tracker • Made for Task-5</p>
+  </footer>
+
+  <script defer src="app.js"></script>
+</body>
+</html>
